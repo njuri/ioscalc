@@ -117,7 +117,7 @@
         else
         {
             self.calcRes = [myCalc calulatorWithFirstValue:[[array objectAtIndex:0] doubleValue]
-                                               secondValue:[[array objectAtIndex:2]doubleValue]
+                                               secondValue:[[array objectAtIndex:2] doubleValue]
                                                 expression:[array objectAtIndex:1]
                                                       calc:myCalc];
             NSString *result = [NSString stringWithFormat:@"%.2f", self.calcRes];
