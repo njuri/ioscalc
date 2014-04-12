@@ -10,11 +10,6 @@
 
 @implementation Calculator
 
--(double)calulatorWithFirstValue:(double)num1 secondValue:(double)num2 expression:(NSString *)exp calc:(Calculator *)calc{
-    double result = 0;
-    return result;
-}
-
 -(double)addNum:(double)num1 toNum:(double)num2{
     return num1+num2;
 }
@@ -37,5 +32,34 @@
 
 -(BOOL)checkForPrime:(double)num{
     return YES;
+}
+
+-(double)calulatorWithFirstValue:(double)num1 secondValue:(double)num2 expression:(NSString *)exp calc:(Calculator *)calc{
+    char ex = [exp characterAtIndex:0];
+    switch (ex) {
+        case '+':
+            return [calc addNum:num1 toNum:num2];
+            break;
+        case '-':
+            return [calc subtractFrom:num1 num:num2];
+            break;
+        case '*':
+            return [calc multiplyNum:num1 byNum:num2];
+            break;
+        case '/':
+            if (num2!=0) {
+                return [calc divideNum:num1 byNum:num2];
+            }
+            else{
+                return 0;
+            }
+            break;
+        case '^':
+            return [calc powerNum:num1 toPower:num2];
+            break;
+        default:
+            return 0;
+            break;
+    }
 }
 @end

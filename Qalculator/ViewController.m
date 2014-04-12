@@ -23,6 +23,7 @@
 @property NSString *stringer;
 @property double calcRes;
 @property BOOL isCalc;
+@property BOOL changeUpperLabel;
 
 @end
 
@@ -84,8 +85,12 @@
     [self.label setText:@""];
     self.stringer = @"";
     self.isCalc = NO;
+    self.changeUpperLabel = YES;
     [self.input removeAllObjects];
     [self.stringerLabel setText:@""];
+    for (UIButton *btn in self.btar) {
+        [btn setEnabled:YES];
+    }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -95,8 +100,21 @@
 
 - (IBAction)calculate:(id)sender {
     
-    NSArray *array = self.input;
-    
+    NSMutableArray *array = self.input;
+    if(self.isCalc){
+        NSString *result = [NSString stringWithFormat:@"%.2f", self.calcRes];
+        NSArray *arrar = [result componentsSeparatedByString:@"."];
+        int afterDecimal = [[arrar lastObject] intValue];
+        if (afterDecimal==0)
+        {
+            result = [NSString stringWithFormat:@"%.0f",self.calcRes];
+        }
+        [array replaceObjectAtIndex:0 withObject:result];
+        self.stringer = [NSString stringWithFormat:@"%@%@%@=",[array objectAtIndex:0],[array objectAtIndex:1],[array objectAtIndex:2]];
+        NSLog(@"%@",self.stringer);
+        [self.stringerLabel setText:self.stringer];
+        self.changeUpperLabel = NO;
+    }
     if(![array count]==0)
     {
         if (!self.isCalc)
@@ -104,8 +122,10 @@
             self.stringer = [self.stringer stringByAppendingString:@"="];
             self.isCalc = YES;
         }
-        
+        if(self.changeUpperLabel)
+        {
         [self.stringerLabel setText:self.stringer];
+        }
         Calculator *myCalc = [[Calculator alloc] init];
         
         if ([array count]==1)
@@ -114,7 +134,7 @@
             [self.label setText:str];
             
         }
-        else
+        else if([array count]==3)
         {
             self.calcRes = [myCalc calulatorWithFirstValue:[[array objectAtIndex:0] doubleValue]
                                                secondValue:[[array objectAtIndex:2] doubleValue]
@@ -128,6 +148,9 @@
                 result = [NSString stringWithFormat:@"%.0f",self.calcRes];
             }
             [self.label setText:result];
+        }
+        else{
+            [self.label setText:@"Wrong input."];
         }
     }
     else
@@ -152,6 +175,7 @@
     self.stringer = @"";
     self.calcRes = 0;
     self.isCalc = NO;
+    self.changeUpperLabel = YES;
     self.btar = [NSArray arrayWithObjects:self.plusButton,self.powerButton,self.multiButton,self.minusButton,self.divButton, nil];
 	// Do any additional setup after loading the view, typically from a nib.
 }
