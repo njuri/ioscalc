@@ -239,6 +239,17 @@
                                     <action selector="buttonEXP:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9Yb-Ak-xg8"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYM-Mg-urC">
+                                <rect key="frame" x="0.0" y="488" width="160" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Is prime?" backgroundImage="pic.png">
+                                    <color key="titleColor" red="0.047886382870000001" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="primalityTest:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="7aT-vv-7VE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -249,6 +260,7 @@
                         <outlet property="multiButton" destination="uI2-Ai-OvA" id="HKb-cD-3DL"/>
                         <outlet property="plusButton" destination="BZh-55-XZk" id="YMh-9k-hIS"/>
                         <outlet property="powerButton" destination="Xhv-bf-zFC" id="pSa-f4-AoF"/>
+                        <outlet property="progressBar" destination="YfY-hL-QO7" id="GTX-Jc-4OP"/>
                         <outlet property="stringerLabel" destination="DE9-qi-2VE" id="ne1-Qa-Zpu"/>
                     </connections>
                 </viewController>

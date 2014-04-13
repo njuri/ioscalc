@@ -30,7 +30,19 @@
     return pow(num1, num2);
 }
 
--(BOOL)checkForPrime:(double)num{
+-(BOOL)checkForPrime:(int)num{
+    if (num>2) {
+        if((num & 1) == 0){
+            return NO;
+        }
+    }
+    for (int i=3; i < num-1; i+=2)
+    {
+        if (num % i == 0)
+        {
+            return NO;
+        }
+    }
     return YES;
 }
 

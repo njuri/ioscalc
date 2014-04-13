@@ -16,7 +16,7 @@
 -(double)divideNum:(double)num1 byNum:(double)num2;
 -(double)powerNum:(double)num1 toPower:(double)num2;
 
--(BOOL)checkForPrime:(double)num;
+-(BOOL)checkForPrime:(int)num;
 
 -(double)calulatorWithFirstValue:(double)num1 secondValue:(double)num2 expression:(NSString *)exp calc:(Calculator *)calc;
 

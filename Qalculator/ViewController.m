@@ -81,6 +81,29 @@
     [self.stringerLabel setText:self.stringer];
 }
 
+- (IBAction)primalityTest:(id)sender {
+    
+    if ([self.input count]==1) {
+        Calculator *myCalc = [[Calculator alloc] init];
+        int value = [[self.input objectAtIndex:0] integerValue];
+        BOOL isPrime = [myCalc checkForPrime:value];
+        NSLog(@"%hhd",isPrime);
+        if (isPrime) {
+            NSString *str = [NSString stringWithFormat:@"Integer %i is prime.",value];
+            [self.label setText:str];
+        }
+        else{
+            NSString *str = [NSString stringWithFormat:@"Integer %i is not prime.",value];
+            [self.label setText:str];
+        }
+    }
+    else{
+        [self.label setText:@"Invalid input."];
+    }
+    
+}
+
+
 - (IBAction)clearField:(id)sender {
     [self.label setText:@""];
     self.stringer = @"";
@@ -176,6 +199,7 @@
     self.calcRes = 0;
     self.isCalc = NO;
     self.changeUpperLabel = YES;
+    self.label.adjustsFontSizeToFitWidth = YES;
     self.btar = [NSArray arrayWithObjects:self.plusButton,self.powerButton,self.multiButton,self.minusButton,self.divButton, nil];
 	// Do any additional setup after loading the view, typically from a nib.
 }
