@@ -68,6 +68,17 @@
 }
 
 - (IBAction)buttonEXP:(id)sender {
+    if(self.isCalc){
+        NSString *result = [NSString stringWithFormat:@"%.2f", self.calcRes];
+        NSArray *arrar = [result componentsSeparatedByString:@"."];
+        int afterDecimal = [[arrar lastObject] intValue];
+        if (afterDecimal==0)
+        {
+            result = [NSString stringWithFormat:@"%.0f",self.calcRes];
+        }
+        [self.input removeAllObjects];
+        [self.input addObject:result];
+    }
     NSString *buttonNR = [sender currentTitle];
     for (UIButton *btn in self.btar) {
         [btn setEnabled:NO];
@@ -116,11 +127,6 @@
     }
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
 - (IBAction)calculate:(id)sender {
     
     NSMutableArray *array = self.input;
@@ -134,7 +140,6 @@
         }
         [array replaceObjectAtIndex:0 withObject:result];
         self.stringer = [NSString stringWithFormat:@"%@%@%@=",[array objectAtIndex:0],[array objectAtIndex:1],[array objectAtIndex:2]];
-        NSLog(@"%@",self.stringer);
         [self.stringerLabel setText:self.stringer];
         self.changeUpperLabel = NO;
     }
@@ -208,6 +213,13 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
++(void)printArray:(NSMutableArray*) array
+{
+    for (NSString* obj in array) {
+        NSLog(@"%@",obj);
+    }
 }
 
 @end
