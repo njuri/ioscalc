@@ -101,11 +101,31 @@
         BOOL isPrime = [myCalc checkForPrime:value];
         NSLog(@"%hhd",isPrime);
         if (isPrime) {
-            NSString *str = [NSString stringWithFormat:@"Integer %i is prime.",value];
+            NSString *str = [NSString stringWithFormat:@"%i is prime.",value];
             [self.label setText:str];
         }
         else{
-            NSString *str = [NSString stringWithFormat:@"Integer %i is not prime.",value];
+            NSString *str = [NSString stringWithFormat:@"%i is not prime.",value];
+            [self.label setText:str];
+        }
+    }
+    else if(self.isCalc){
+        if(fmod(self.calcRes, 1)==0){
+        Calculator *myCalc = [[Calculator alloc] init];
+        int value = floor(self.calcRes*100)/100;
+        BOOL isPrime = [myCalc checkForPrime:value];
+        NSLog(@"%hhd",isPrime);
+        if (isPrime) {
+            NSString *str = [NSString stringWithFormat:@" %i is prime.",value];
+            [self.label setText:str];
+        }
+        else{
+            NSString *str = [NSString stringWithFormat:@"%i is not prime.",value];
+            [self.label setText:str];
+        }
+        }
+        else{
+            NSString *str = [NSString stringWithFormat:@"%.2f should be integer.",self.calcRes];
             [self.label setText:str];
         }
     }
@@ -145,12 +165,32 @@
     }
 }
 
+- (IBAction)memRecall:(id)sender {
+    if([self.memory count]>0){
+        if([self.input count]==2){
+            [self.input addObject:[self.memory objectAtIndex: [self.memory count]-1]];
+            NSLog(@"Added %@ to input.",[self.memory objectAtIndex: [self.memory count]-1]);
+            self.stringer = [NSString stringWithFormat:@"%@%@%@",[self.input objectAtIndex:0],[self.input objectAtIndex:1],[self.input objectAtIndex:2]];
+            [self.stringerLabel setText:self.stringer];
+        }
+        else if([self.input count]==0){
+            [self.input addObject:[self.memory objectAtIndex: [self.memory count]-1]];
+            self.stringer = [NSString stringWithFormat:@"%@",[self.memory objectAtIndex: [self.memory count]-1]];
+            [self.stringerLabel setText:self.stringer];
+
+        }
+        
+    }
+}
 
 
 
 - (IBAction)calculate:(id)sender {
     
     NSMutableArray *array = self.input;
+    for (UIButton *btn in self.btar) {
+        [btn setEnabled:YES];
+    }
     if(self.isCalc){
         NSString *result = [NSString stringWithFormat:@"%.2f", self.calcRes];
         NSArray *arrar = [result componentsSeparatedByString:@"."];
