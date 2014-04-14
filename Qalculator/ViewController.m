@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *powerButton;
 @property (weak, nonatomic) IBOutlet UIButton *multiButton;
 @property (weak, nonatomic) IBOutlet UIButton *divButton;
+@property NSMutableArray *memory;
 @property NSMutableArray *input;
 @property NSArray *btar;
 @property NSString *stringer;
@@ -127,6 +128,26 @@
     }
 }
 
+- (IBAction)memPlus:(id)sender {
+    int inputSize = [self.input count];
+    if(inputSize>0){
+        if (inputSize==1) {
+            [self.memory addObject:[self.input objectAtIndex:0]];
+            NSLog(@"Added %@ to memory.",[self.memory objectAtIndex:[self.memory count]-1]);
+        }
+        else{
+            if (self.isCalc) {
+                NSNumber *result = [NSNumber numberWithDouble:self.calcRes];
+                [self.memory addObject:[result stringValue]];
+                NSLog(@"Added %@ to memory.",[self.memory objectAtIndex:[self.memory count]-1]);
+            }
+        }
+    }
+}
+
+
+
+
 - (IBAction)calculate:(id)sender {
     
     NSMutableArray *array = self.input;
@@ -200,6 +221,7 @@
 {
     [super viewDidLoad];
     self.input = [[NSMutableArray alloc] init];
+    self.memory= [[NSMutableArray alloc] init];
     self.stringer = @"";
     self.calcRes = 0;
     self.isCalc = NO;
