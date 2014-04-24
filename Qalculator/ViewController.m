@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *powerButton;
 @property (weak, nonatomic) IBOutlet UIButton *multiButton;
 @property (weak, nonatomic) IBOutlet UIButton *divButton;
+@property (weak, nonatomic) IBOutlet UIButton *dotButton;
 @property NSMutableArray *memory;
 @property NSMutableArray *input;
 @property NSArray *btar;
@@ -36,7 +37,17 @@
     }
     NSString *buttonNR = [sender currentTitle];
     NSString *labelText = [self.label text];
-    NSString *newText = [labelText stringByAppendingString:buttonNR];
+    NSString *newText;
+    if ([buttonNR isEqualToString:@"."] && [labelText length]==0)
+    {
+        newText = [labelText stringByAppendingString:@"0."];
+        [self.dotButton setEnabled:NO];
+    }
+    else
+    {
+        newText = [labelText stringByAppendingString:buttonNR];
+        [self.dotButton setEnabled:YES];
+    }
     [self.label setText:newText];
     if([self.input count]==0)
     {
@@ -83,6 +94,7 @@
     NSString *buttonNR = [sender currentTitle];
     for (UIButton *btn in self.btar) {
         [btn setEnabled:NO];
+        [btn setAlpha:1];
     }
     [self.input addObject:buttonNR];
     [self.label setText:@""];
@@ -275,13 +287,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-+(void)printArray:(NSMutableArray*) array
-{
-    for (NSString* obj in array) {
-        NSLog(@"%@",obj);
-    }
 }
 
 @end
